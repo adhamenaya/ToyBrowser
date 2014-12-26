@@ -59,6 +59,8 @@ public class Main {
 		// (OK) paint on the canvas
 		layoutCanvas.setDisplayCommandsList(displayList);
 
+		
+		
 		final JFrame mainFrame = new JFrame("Adham web browser!");
 		mainFrame.getContentPane().add(layoutCanvas);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
