@@ -10,6 +10,7 @@ import com.adhamenaya.layout.InlineType;
 import com.adhamenaya.layout.LayoutBox;
 import com.adhamenaya.layout.Rect;
 import com.adhamenaya.paint.DisplayCommand;
+import com.adhamenaya.paint.DrawText;
 import com.adhamenaya.paint.SolidColor;
 
 public class DisplayListBuilder {
@@ -29,8 +30,9 @@ public class DisplayListBuilder {
 		renderBackground(rootBox);
 		list.addAll(renderBorders(rootBox));
 
-		// TODO display the text
-		renderText(rootBox);
+		// Draw text element
+		if (rootBox.getStyleNode() != null && rootBox.getStyleNode().node.type.isText())
+			renderText(rootBox);
 
 		for (LayoutBox child : rootBox.children) {
 			renderLayoutBox(child);
@@ -38,8 +40,13 @@ public class DisplayListBuilder {
 	}
 
 	private void renderText(LayoutBox rootBox) {
-		// TODO Auto-generated method stub
 
+		DrawText command = new DrawText();
+		command.rect = rootBox.dimensions.borderBox();
+		command.rect.x += 10;
+		command.rect.y = +30;
+		command.text = rootBox.getStyleNode().node.type.text;
+		list.add(command);
 	}
 
 	private Vector<DisplayCommand> renderBorders(LayoutBox rootBox) {
@@ -101,8 +108,6 @@ public class DisplayListBuilder {
 
 		bottomBorderCommand.rect = rootBox.dimensions.borderBox();
 		list.add(bottomBorderCommand);
-		
-
 
 		return list;
 	}
@@ -113,7 +118,7 @@ public class DisplayListBuilder {
 
 		SolidColor command = new SolidColor();
 		command.color = backgroundColor;
-		command.rect = rootBox.dimensions.borderBox();	
+		command.rect = rootBox.dimensions.borderBox();
 		list.add(command);
 	}
 

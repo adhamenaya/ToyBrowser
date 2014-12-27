@@ -43,6 +43,13 @@ public class LayoutCanvas extends JComponent {
 					g.fillRect((int) myRect.x, (int) myRect.y, (int) myRect.width, (int) (myRect.height));
 
 				}
+			} else if (cmd instanceof DrawText) {
+				com.adhamenaya.layout.Rect myRect1 = ((DrawText) cmd).rect;
+				if (myRect1 != null) {
+ 					Color color = new Color(0, 0, 0);
+					g.setColor(color);
+					g.drawString(((DrawText) cmd).text, (int)myRect1.x, (int)myRect1.y);
+				}
 			}
 		}
 	}

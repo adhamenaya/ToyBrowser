@@ -199,7 +199,7 @@ public class LayoutBox {
 		// margin, border, and padding have initial value 0.
 		Length zeroLength = new Length(0.0f, Unit.px);
 
-		// Margin  
+		// Margin
 		this.dimensions.margin.top = (style.lookUp(zeroLength, new String[] { "margin-top", "margin" })).toPx();
 		this.dimensions.margin.bottom = (style.lookUp(zeroLength, new String[] { "margin-bottom", "margin" })).toPx();
 
@@ -230,10 +230,10 @@ public class LayoutBox {
 				// Increment the height so each child is laid out below the
 				// previous
 				// one.
- 				this.dimensions.content.height += child.dimensions.extraBox().height;
+				this.dimensions.content.height += child.dimensions.extraBox().height;
 			}
 		else
-			this.dimensions.content.height = this.dimensions.content.height+ this.dimensions.extraBox().height;
+			this.dimensions.content.height = 50 + this.dimensions.content.height + this.dimensions.extraBox().height;
 
 	}
 
