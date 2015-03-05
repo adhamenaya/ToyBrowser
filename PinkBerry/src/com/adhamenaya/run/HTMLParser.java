@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 import java.util.HashMap;
@@ -36,7 +43,6 @@ public class HTMLParser extends Parser {
 			node = parseElement();
 		else
 			node = parseText();
-
 		return node;
 	}
 
@@ -47,10 +53,14 @@ public class HTMLParser extends Parser {
 		if (!consumeChar().equals('<'))
 			return null;
 
+		// Opening tag
 		String tagName = parseTagName();
+
+		// The attributes of the tag
 		Map<String, String> attributes = parseAttributes();
 
 		Character cc = consumeChar();
+
 		if (!cc.equals('>'))
 			return null;
 
@@ -89,7 +99,7 @@ public class HTMLParser extends Parser {
 
 		if (!charAfterKey.equals("="))
 			return null;
-		
+
 		final String ValueName = parseAttributeValue();
 
 		return new Pair(KeyName, ValueName);
@@ -109,7 +119,6 @@ public class HTMLParser extends Parser {
 		}
 		String value = sb.toString();
 
-		
 		if (!consumeChar().equals(openQoute))
 			return null;
 
@@ -119,12 +128,17 @@ public class HTMLParser extends Parser {
 	// Parse a list of name="value" pairs, separated by whitespace.
 	HashMap<String, String> parseAttributes() {
 		HashMap<String, String> attributes = new HashMap<String, String>();
+
 		while (true) {
 			consumeWhiteSpace();
+
 			Character nextChar = nextChar();
+
 			if (eof() || nextChar.equals('>'))
 				break;
+
 			Pair attribute = parseAttribute();
+
 			if (attribute != null)
 				attributes.put(attribute.getKey(), attribute.getValue());
 		}

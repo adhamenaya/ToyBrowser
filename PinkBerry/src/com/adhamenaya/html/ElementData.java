@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.html;
 
 import java.util.ArrayList;
@@ -21,8 +28,7 @@ public class ElementData {
 
 	public ArrayList<String> getClasses() {
 		if (attributes.get("class") != null)
-			return new ArrayList<String>(Arrays.asList(attributes.get("class")
-					.split(" ")));
+			return new ArrayList<String>(Arrays.asList(attributes.get("class").split(" ")));
 		else
 			return new ArrayList<String>();
 	}

@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 public class Parser {
@@ -28,7 +35,7 @@ public class Parser {
 	protected Character consumeChar() {
 		if (poistion < input.length()) {
 			Character consumedChar = input.toCharArray()[poistion];
- 			poistion++;
+			poistion++;
 			return consumedChar;
 		} else
 			return null;

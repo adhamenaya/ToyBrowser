@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.paint;
 
 import java.awt.Color;
@@ -10,9 +17,6 @@ import javax.swing.JComponent;
 
 public class LayoutCanvas extends JComponent {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private Vector<DisplayCommand> commandList = null;
@@ -45,13 +49,41 @@ public class LayoutCanvas extends JComponent {
 				}
 			} else if (cmd instanceof DrawText) {
 				com.adhamenaya.layout.Rect myRect1 = ((DrawText) cmd).rect;
+
 				if (myRect1 != null) {
- 					Color color = new Color(0, 0, 0);
+
+					Color color = new Color(0, 0, 0);
 					g.setColor(color);
-					g.drawString(((DrawText) cmd).text, (int)myRect1.x, (int)myRect1.y);
+
+					String perparedString = prepareString(g, ((DrawText) cmd).text, (int) myRect1.width);
+
+					drawString(g, perparedString, (int) myRect1.x, (int) myRect1.y);
+
 				}
 			}
 		}
+	}
+
+	private String prepareString(Graphics g, String text, int boxWidth) {
+		StringBuilder string = new StringBuilder();
+		int lineWidth = 0;
+		int fontWidth = g.getFontMetrics().getWidths()[0];
+
+		for (int i = 0; i < text.length(); i++) {
+			string.append(String.valueOf(text.toCharArray()[i]));
+			lineWidth += fontWidth;
+
+			if (lineWidth > boxWidth) {
+				lineWidth = 0;
+				string.append("\n");
+			}
+		}
+		return string.toString();
+	}
+
+	private void drawString(Graphics g, String text, int x, int y) {
+		for (String line : text.split("\n"))
+			g.drawString(line, x, y += g.getFontMetrics().getHeight());
 	}
 
 	public Dimension getPreferredSize() {

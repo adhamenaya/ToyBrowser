@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 import java.util.Vector;
@@ -19,9 +26,7 @@ public class DisplayListBuilder {
 
 	public Vector<DisplayCommand> buildDisplayList(LayoutBox rootBox) {
 		list = new Vector<DisplayCommand>();
-		list = new Vector<DisplayCommand>();
 		renderLayoutBox(rootBox);
-
 		return list;
 	}
 
@@ -31,8 +36,10 @@ public class DisplayListBuilder {
 		list.addAll(renderBorders(rootBox));
 
 		// Draw text element
-		if (rootBox.getStyleNode() != null && rootBox.getStyleNode().node.type.isText())
+		if (rootBox.getStyleNode() != null && rootBox.getStyleNode().node.type.isText()) {
 			renderText(rootBox);
+
+		}
 
 		for (LayoutBox child : rootBox.children) {
 			renderLayoutBox(child);
@@ -43,9 +50,8 @@ public class DisplayListBuilder {
 
 		DrawText command = new DrawText();
 		command.rect = rootBox.dimensions.borderBox();
-		command.rect.x += 10;
-		command.rect.y = +30;
 		command.text = rootBox.getStyleNode().node.type.text;
+
 		list.add(command);
 	}
 
@@ -119,6 +125,7 @@ public class DisplayListBuilder {
 		SolidColor command = new SolidColor();
 		command.color = backgroundColor;
 		command.rect = rootBox.dimensions.borderBox();
+		
 		list.add(command);
 	}
 

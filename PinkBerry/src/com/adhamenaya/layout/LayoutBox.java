@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.layout;
 
 import java.util.Vector;
@@ -54,7 +61,7 @@ public class LayoutBox {
 			// Otherwise, create a new one.
 			Vector<LayoutBox> children1 = children;
 
-			// if (children.get(children.size() - 1).boxType instanceof
+			// if (children.get(children.size() - 1).boxType instance of
 			// AnonymousType) {
 			children.add(new LayoutBox(new AnonymousType()));
 			// }
@@ -224,6 +231,8 @@ public class LayoutBox {
 	// Sets `self.dimensions.height` to the total content height.
 	private void layoutBlockChildren() {
 
+		int minimumHeight = 20;
+
 		if (children.size() > 0)
 			for (LayoutBox child : children) {
 				child.layout(dimensions);
@@ -233,12 +242,13 @@ public class LayoutBox {
 				this.dimensions.content.height += child.dimensions.extraBox().height;
 			}
 		else
-			this.dimensions.content.height = 50 + this.dimensions.content.height + this.dimensions.extraBox().height;
+			this.dimensions.content.height = minimumHeight + this.dimensions.content.height + this.dimensions.extraBox().height;
 
 	}
 
 	private void calculateBlockHeight() {
 		StyledNode style = getStyleNode();
+
 		Value height = style.specifiedValues.get("height");
 		if (height != null && height.toPx() != 0.0f) {
 			this.dimensions.content.height = height.toPx();

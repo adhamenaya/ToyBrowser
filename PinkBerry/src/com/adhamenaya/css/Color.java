@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.css;
 
 public class Color extends Value {
@@ -17,13 +24,13 @@ public class Color extends Value {
 	@Override
 	public void setKeyword(Keyword keyword) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void setLength(Length length) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

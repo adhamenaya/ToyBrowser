@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 import java.util.Vector;
@@ -19,13 +26,13 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		String html = "<div class='a'>Hello World, This is test text, rendered inside a DIV tag without a style!" + "  <div class='b'>" + "     <div class='c'>" + "        <div class='d'>"
-				+ "           <div class='e'>" + "              <div class='f'>" + "                 <div class='g'></div>"
-				+ "              </div>" + "           </div>" + "        </div>" + "     </div>" + "  </div>" + "</div>";
+		String html = "<div class='a'>Div A" + "  <div class='b'> Div B" + "<div class='c'> Div C" + "<div class='d'> Div D"
+				+ "<div class='e'> Div E" + "<div class='f'> Div F" + "<div class='g'> Div G </div>" + "</div>" + "</div>"
+				+ "</div>" + "</div>" + "</div>" + "<div class='d'> Adham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWAAdham Enaya from palestine I am working at UNRWA as ABAP developer can youUNRWA as ABAP developer can youUNRWA as ABAP developer can youUNRWA as ABAP developer can youUNRWA as ABAP developer can you check my LinkedIn profile</div></div>";
 
-		String css = " * { display: block; padding: 12px;}" + ".a { background: #ff0000; }"
-				+ ".b { background: #ffa500; }" + ".c { background: #ffff00; }" + ".d { background: #008000; }"
-				+ ".e { background: #0000ff; }" + ".f { background: #4b0082; }" + ".g { background: #800080; }";
+		String css = " * { display: block; padding: 12px;}" + ".a { background: #ff0000; }" + ".b { background: #ffa500; }"
+				+ ".c { background: #ffff00; }" + ".d { background: #008000; }" + ".e { background: #0000ff; }"
+				+ ".f { background: #4b0082; }" + ".g { background: #800080; }";
 
 		Dimensions initialBlock = new Dimensions();
 
@@ -41,27 +48,26 @@ public class Main {
 		DisplayListBuilder displayListBuilder = new DisplayListBuilder();
 		LayoutCanvas layoutCanvas = new LayoutCanvas();
 
-		// (OK) Parse CSS file
+		// 1. Parse CSS file
 		StyleSheet style = cssParser.parse(css);
 
-		// (OK) Parse HTML file
+		// 2. Parse HTML file
 		Node htmlTree = htmlParser.parse(html);
 
-		// (OK) Generate the style tree
+		// 3. Generate the style tree
 		StyledNode styleTree = styleBuilder.build(htmlTree, style);
 
-		// (OK) Generate the layout boxes tree
+		// 4. Generate the layout boxes tree
 		LayoutBox box = layoutBuilder.layoutTree(styleTree, initialBlock);
 
-		// (OK) Generate the paint command list
+		// 5. Generate the paint command list
 		Vector<DisplayCommand> displayList = displayListBuilder.buildDisplayList(box);
 
-		// (OK) paint on the canvas
+		// 6. paint on the canvas
 		layoutCanvas.setDisplayCommandsList(displayList);
 
-		
-		
-		final JFrame mainFrame = new JFrame("Adham web browser!");
+		// 7. Display the paints
+		final JFrame mainFrame = new JFrame("PinkBerry web browser!");
 		mainFrame.getContentPane().add(layoutCanvas);
 		mainFrame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		JScrollPane pane = new JScrollPane(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);

@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 import java.util.HashMap;
@@ -27,7 +34,7 @@ public class StyleBuilder {
 
 		if (root.type.isText()) {
 			// If it is a text, then create an empty style values
-			styledNode.specifiedValues = new HashMap<String, Value>();
+			styledNode.specifiedValues = generalSpecifiedValues(styleSheet);
 
 		} else {
 			// Get the CSS style values.
@@ -65,6 +72,24 @@ public class StyleBuilder {
 				values.put(declaration.name, declaration.value);
 			}
 		}
+		return values;
+	}
+
+	private HashMap<String, Value> generalSpecifiedValues(StyleSheet stylesheet) {
+
+		// Create a hash map for the declarations values.
+		HashMap<String, Value> values = new HashMap<String, Value>();
+
+		for (Rule rule : stylesheet.rules) {
+			for (Selector selector : rule.selectors) {
+				if (selector.simple.classNames.contains("*")) {
+					for (Declaration declaration : rule.declarations) {
+						values.put(declaration.name, declaration.value);
+					}
+				}
+			}
+		}
+
 		return values;
 	}
 

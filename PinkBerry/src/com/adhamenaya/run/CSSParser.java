@@ -1,3 +1,10 @@
+/**
+ * A toy web browser engine built using java, that parses and displays simple HMTL and CSS files
+ *
+ * @author  Adham Enaya
+ * @version 1.0
+ * @since   2015-01-15
+ */
 package com.adhamenaya.run;
 
 import java.util.Collections;
@@ -39,6 +46,8 @@ public class CSSParser extends Parser {
 			default:
 				if (!isValidIdentifierChar(nextChar()))
 					return SimpleSelector;
+
+				// Get the tag name i.e. div, body ..etc
 				String tagName = parseIdentifier();
 				SimpleSelector.tagName = tagName;
 				break;
@@ -51,15 +60,24 @@ public class CSSParser extends Parser {
 		consumeWhiteSpace();
 
 		Vector<Selector> selectors = new Vector<Selector>();
+
+		// Loop until the end of selector section and the start of the
+		// declaration
+
 		while (true) {
+
 			SimpleSelector simple = parseSimpleSelector();
+
 			Selector selector = new Selector();
+
 			selector.setSimpleSelector(simple);
+
 			selectors.add(selector);
 
 			Character nextChar = nextChar();
 
 			switch (nextChar) {
+
 			case ',':
 				consumeChar();
 				break;
@@ -100,8 +118,9 @@ public class CSSParser extends Parser {
 
 		while (true) {
 			consumeWhiteSpace();
-			String nextChar = nextChar().toString();
+
 			boolean endOfDeclaration = nextChar().toString().equals("}");
+
 			if (eof() || endOfDeclaration) {
 				consumeChar();
 				return declarations;
@@ -181,8 +200,8 @@ public class CSSParser extends Parser {
 
 	}
 
+	// Convert from Hexadecimal into decimal
 	int parseHexPair() {
-
 		String str = input.substring(poistion, poistion + 2);
 		poistion += 2;
 		return Integer.parseInt(str, 16);
